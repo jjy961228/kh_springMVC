@@ -1,0 +1,85 @@
+mybatis-config.xml 		mapper등록: mapper의 경로를 적어준다
+			mapper는 board와member 둘다 공유하는 창이다
+
+board-mapper.xml		DB와 연결
+			mapper를 등록했으니 ,  여기서 mapper의 namespace 등등 만들기
+
+
+sqlDEV에서 테이블 생성 	 (항상 vo클래스와 연관지어서 생각)	
+			boardNo는 pk이고 , 시퀀스로 관리한다	
+			-> 시퀀스생성	CREATE SEQUENCE SEQ_BOARD_NO; 
+			INSERT할때에는 대부분 시퀀스가 사용된다
+
+
+참고사항)
+1. vo클래스(board)의 멤버변수 명으로 input태그의 name속성값을 바꿔야지만
+	 Controller에서 @ModelAttribute를 사용할 수 있다
+2. 만드는순서(코딩순서)
+	1) jsp
+	
+	1) 패키지 생성
+	2) class생성
+	3) 인터페이스 생성
+	4) 폴더만들어서(view밑에 member,board) jsp
+	5) jsp
+
+3. Service : 화면단과 가깝다		Store: DB와 가깝다 
+	 
+4. 관계	Conroller - @Controller  	빈등록
+		- @Autowired 	Service(인터페이스)를 DI로 결합
+	ServiceImpl- (emplements)- Service 	service를 상속받아서 만들어짐 관계형성 
+		   -멤버일때: @Service	빈등록 	
+		   -보드일때: @Repository	빈등록
+		   -@Autiwired 	Store(인터페이스)를 DI로 결합
+		   -@Autowired 	SqlSession를 DI로 결합
+
+
+//게시판 등록
+(boardWriteForm.jsp)
+<form action="/board/register.kh" method="post" enctype="multipart/form-data">
+<input>태그의 name값 = Board클래스의 멤버변수명	--> 이렇게하면 @ModelAttribute를 사용할 수 있다
+↓
+(BoardController)
+@Controller	//빈등록
+@Autowired 	
+private BoardService bService;		//Service와 연결하면서, 결합도를 낮추기위해 의존성 주입
+↓
+	@RequestMapping(value="/board/register.kh" , method=RequestMethod.POST)
+	public String boardRegister(
+			Model model,
+			@ModelAttribute Board board) {
+			Int result = bService.registerBoard(board);	board를 넘겨주면서 비지니스로직 후, int값으로저장
+			↓
+			(비지니스로직태우기)
+			 Controller(boardRegister())
+			↓
+			 Service(boardRegister()) 
+			↓
+			ServiceImpl(boardRegister(bStore.insertBoard(SqlSession,Board)) 
+			↓
+			Store(insertBoard(SqlSession sqlSession ,Board board ))
+			↓
+			SotreLogic(
+				insertBoard(int result = sqlSession.insert("BoardMapper.insertBoard", board);))
+				  : board-mapper.xml 에서 DB와 연동해, INSERT 해서 INT값으로 가져온다
+			↓
+			Conroller에 최종저장
+			int result = bService.registerBoard(board);
+			}
+
+
+//게시판 조회 : 
+(boardListView.jsp)
+<c:url var="pagination" value="/board/list.kh">
+	<c:param name="page" value="${p }"></c:param>
+</c:url>
+↓
+(BoardController)
+boardListView(
+		Model model)	
+		"/board/list.kh" -> Controller(boardListView(bList를 보내준다)) -> boardListView.jsp(bList를 jstl로 받는다)
+
+
+
+
+

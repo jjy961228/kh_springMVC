@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<!--	<bean id="" class=""></bean> 와같이  
+	bean 태그를 이용해서 bean 등록을 하지않고,
+	Annotation(@로 시작하는단어)으로 빈 등록을 한 후에,
+	어노테이션 빈을 스캔할 범위를 설정해주는 태그로 <context:component-scan> 태그를 사용함-->
+	<context:component-scan base-package="org.kh.customer"></context:component-scan>
+</beans>

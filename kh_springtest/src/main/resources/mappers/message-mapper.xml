@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MessageMapper">
+<!-- 	<resultMap type="MessageDTO" id="messageResultMap"> -->
+<!-- 		<id property="seq" column="SEQ"></id> -->
+<!-- 		<result property="name" column="NAME"/> -->
+<!-- 		<result property="message" column="MESSAGE"/> -->
+<!-- 		<result property="writedate" column="WRITEDATE"/> -->
+<!-- 	</resultMap> -->
+
+	<insert id="insertMessage">
+		INSERT INTO MESSAGE VALUES(message_seq.NEXTVAL, #{name }, #{message }, sysdate)
+	</insert>
+	
+	<select id="listMessage">
+		SELECT * FROM MESSAGE
+	</select>
+</mapper>

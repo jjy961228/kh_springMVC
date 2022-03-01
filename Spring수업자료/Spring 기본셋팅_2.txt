@@ -1,0 +1,47 @@
+Spring context:  해보기
+<기본셋팅>
+	1. maven
+	maven repository검색 -> 창들어와서 -> spring context검색
+	->spring context 클릭 ->버전:  5.2.18 RELEASE  -> Maven꺼 복사해오기
+	->이클립스의 pom.xml(01_HelloSpring/pom.xml) 파일 들어가서
+	-> 5행의 <version>밑에 복사해온거 추가하기
+<dependencies>
+	  <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context</artifactId>
+	    <version>5.2.18.RELEASE</version>
+	</dependency> 
+  </dependencies>
+	
+	->C:\tools\apache-maven-3.5.3\repository  경로에 추가되었음을 알 수 있다
+
+	2. 
+	src 우클릭 new -> spring Bean Configureation file 선택
+	-> file name: spring-context.xml ->  beans선택후, 맨마지막꺼 선택
+
+<실제로 Spring context 해보기>
+Spring context.xml의 기능 ? 
+	1. 객체생성
+	2. 트렌젝션관리
+	3. DI설정
+	4. AOP
+
+1)bean등록
+<!-- Run에서, MessageBeanHello를 사용하기위해선 bean을이용해 클래스를 등록해야한다
+	bean을 이용한 클래스 등록: 
+	클래스를 bean으로 등록을 하는 과정이고
+	bean으로 등록된 클래스는 Spring-Container, Bean Container에의해서 관리가 된다
+						 -->
+2)bean 사용
+ApplicationContext ctx = new GenericXmlApplicationContext("spring-context.xml");
+MessageBean bean = (MessageBeanHello)ctx.getBean("messageBean");
+bean.sayHello("Spring New!");
+	bean의 Spring-Container에 의해서 자동으로 객체 생성되고, ctx.getBean을 이용해 필요시마다 갖다 쓸 수 있다 .
+
+
+	
+
+
+
+	

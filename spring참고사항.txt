@@ -1,0 +1,19 @@
+워크스페이스가 새롭게 열리면 font, color, encoding 이런것들을 모두 새로 해줘야 함
+
+font : window -> preferences -> color and fonts
+
+color: window -> preferences -> java ~~ SyntaxColoring
+
+encoding : window -> preferences -> General -> workspace -> utf-8, web에서 html, css, jsp -> utf-8
+
+
+apache maven 압축 풀면 뭐가된다?
+설치가 된다
+
+설치가 된 후에 중요한 것은 무엇이지요?
+1. 라이브러리 파일들이 저장되는 폴더 설정
+2. 이클립스와 연동
+
+
+
+

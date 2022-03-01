@@ -1,0 +1,11 @@
+1. spring 레거시 프로젝트 만들기
+
+2. <dependencies></dependencies> 복사해서 추가하기
+	이작업이 java~머시기 -> maven으로 바꾸는 과정이다
+	maven업데이트 하기 : alt+ f5
+3.  패키지, 클래스, 인터페이스 만들어주기
+
+4. 패키지 우클릭-> baen 만들어주기	제목: spring-context.xml
+
+
+

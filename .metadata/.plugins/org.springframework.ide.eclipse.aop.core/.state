@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="04_SpringMVC"/>
+<aop-project name="03_SpringAnnotation"/>
+<aop-project name="01_HelloSpring"/>
+<aop-project name="kh_springtest"/>
+<aop-project name="02_SpringDI"/>
+</aop-reference-model>

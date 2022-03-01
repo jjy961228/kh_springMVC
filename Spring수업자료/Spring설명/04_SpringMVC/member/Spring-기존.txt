@@ -1,0 +1,142 @@
+index.jsp : 처음 페이지
+
+	
+index.jsp("location.href=home.kh")
+->HomeController의
+	@RequestMapping(value = "/home.kh", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {
+		
+		return "home";
+	}
+
+
+
+//회원가입
+memberJoinView()  작동방식 
+->MemberController의 memberJoinView() 
+	@RequestMapping(value= "memberJoinView.kh" , method=RequestMethod.GET)
+	public String memberJoinView() { 
+		return "member/memberJoin"
+		}
+->memberJoin.jsp 창으로 이동
+
+->memberJoin.jsp
+	action="/member/register.kh" 	method="post"
+
+->MemberController의 
+	@RequestMapping(value="/member/register.kh" , method=RequestMethod.POST)
+	String memberId = request.getParameter(name값)
+	...등등
+	Member member = new Member();
+	member.setMember(memberId)
+	..등등
+	
+	(MemberController)
+	int result =mService.registerMember(member); 	비지니스로직 태우기
+	결과값에따라 성공,실패페이지 이동
+	↓
+	(MemberService) 	인터페이스
+	abstrarct public int registerMember(Member member);
+	↓
+	(MemberServiceImpl)
+	//의존성 주입
+	@Autowired	MemberServiceImpl - MemberStore의 관계맺기
+	private MemberStore mStore;
+	//의존성 주입
+	@Autowired	
+	private SqlSessionTemplate sqlSession;	
+	@overide	
+	public int registerMember(Member member) {
+		int result = mStore.insertMember(sqlSession, member);
+		return result;
+	}
+	↓
+	(MemberStore)	인터페이스
+	abstract public int insertMember(SqlSession session, Member member);
+	↓
+	(MemberStoreLogic)
+	@Override
+	public int insertMember(SqlSession session, Member member) {
+		int result = session.insert("MemberMapper.insertMember", member);
+		return result;
+	}
+	↓
+	(member-mapper.xml)	mapper에서 자체적으로 DB와 연결해 INSERT한다
+	<insert id="insertMember" parameterType="org.kh.nexapring.member.domain.Member">
+		INSERT INTO MEMBER_TBL VALUES(#{memberId}, #{memberPwd}, #{memberName}, #{memberEmail}, #{memberPhone}, #{memberAddr}, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	
+
+
+//로그인
+(home.jsp)
+<form action="/member/login.kr" method="post">
+↓
+(MemberController)
+RequestMapping(value="/member/login.kh", method=RequestMethod.POST)
+
+
+
+
+
+
+
+//정보수정
+(home.jsp)
+<td><button onclick="showMyInfo();">정보수정</button></td>
+
+<script>
+	function showMyInfo() {	//js: 고전이벤트모델
+			location.href = "/member/myInfo.kh"; 
+	}
+</script>
+↓
+(myPage.jsp)
+<form action="/member/modify.kh" method="post">
+
+<table>
+	<tr>
+		<td> * 아이디 </td>
+		<td>
+			<input type="text" name="memberId" value="${loginUser.memberId }" readonly> 
+			value= 마이페이지에 정보 띄워주기위해 쿼리스트링으로 가져온 값
+		</td>
+	</tr>
+	.
+	.
+	. 비번,주소 등등
+↓
+(MemberController)
+@RequestMapping(value="/member/modify.kh", method=RequestMethod.POST)
+public String memberModify() {
+	request.setCharactorEncoding("utf-8");
+	String memberId = request.getPra ~ 
+	..... 등등 주소까지 받고,
+	Member member = new Member();
+	member.set~ 	멤버에저장
+	try{
+		int result = mService.modifyMember(member); 
+		//비지니스 로직: MemberController -> MemberService -> MemberServiceImpl(updateMember();) -> MemberStore
+					-> member-mapper.xml과 연결
+		
+	}catch
+}
+
+
+
+
+
+//회원 탈퇴하기(마이페이지에 있다)
+(myPage.jsp)
+<button type="button" onclick="location.href='/member/remove.kh?memberId=${loginUser.memberId }'">탈퇴하기</button>
+
+
+   		
+	
+
+
+
+
+
+cf)vo클래스(member)의 멤버변수 명으로 input태그의 name속성값을 바꿔야지만 Controller에서 @ModelAttribute를 사용할 수 있다	 
+

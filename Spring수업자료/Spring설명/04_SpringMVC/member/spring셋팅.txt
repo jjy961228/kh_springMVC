@@ -1,0 +1,24 @@
+pom.xml , mybatis-config.xml , root-context 셋팅해주기
+
+root-context.xml : 접속정보(driver,url,id,pw) 적어주기 
+
+
+mybatis-config.xml :  
+	1. https://mybatis.org 에서 가져와서 복붙
+	<!DOCTYPE configuration
+  	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-config.dtd">	
+
+	2.mapper의 위치 설정
+	<mappers>
+		<mapper resource="mappers/board-mapper.xml"/>
+		<mapper resource="mappers/member-mapper.xml"/>
+	</mappers>
+
+member-mapper.xml: 	mybatis-config.xml 에서 만들어준 mappers경로에 member-mapper.xml만들어주기
+
+
+
+
+
+		

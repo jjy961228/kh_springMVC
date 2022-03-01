@@ -1,0 +1,18 @@
+<이클립스 기본 셋팅>
+<Ecleapse>
+1. 기본셋팅
+	<글꼴>
+	window -> preperences -> (General)(Appearacne)colors and fonts -> basic 
+	-> Text Font -> 글꼴: D2Coding
+	<색>
+	window -> preperences -> (java)(Editor)Syntax Coloring -> java 
+	-> Class색 : red 
+	
+	<utf-8> 
+	window -> preperences -> (General)workspace -> other: utf-8
+	<web친구들-utf-8> 
+	window -> preperences -> Web 
+	-> CSS Files,HTML files, JSP files 의 encoding: utf-8
+	<utf-8>
+	window -> preperences 
+	-> (General)(Editors)(Text Editors)Spelling의 encpding:utf-8

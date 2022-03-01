@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+	
+	<!-- Run에서, MessageBeanHello를 사용하기위해선 bean을이용해 클래스를 등록해야한다
+	1. bean을 이용한 클래스 등록: 
+	클래스를 bean으로 등록을 하는 과정이고
+	bean으로 등록된 클래스는 Spring-Container, Bean Container에의해서 관리가 된다
+						 -->
+	<!-- 멤버변수가 없는 상태에서는 bean등록을 bean태그로만 끝낼 수 있다 -->
+	<!-- id : bean의 id 지정 / class: 연결할 class지정 -->
+	<bean id="messageBean" class="org.kh.hellospring.MessageBeanHello"></bean>
+</beans>

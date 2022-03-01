@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BoardMapper">
+	<!-- resultMap: jdbc에서 rset => Board에 저장 => list에 퍼다나르기 전부다 해준다 -->
+	<resultMap type="Board" id="boardResultMap">
+		<id property="boardNo" column="BOARD_NO"/>
+		<result property="boardTitle" column="BOARD_TITLE"/>
+		<result property="boardContents" column="BOARD_CONTENTS"/>
+		<result property="boardWriter" column="BOARD_WRITER"/>
+		<result property="boardFilename" column="BOARD_FILENAME"/>
+		<result property="boardFileRename" column="BOARD_FILERENAME"/>
+		<result property="boardCount" column="BOARD_COUNT"/>
+		<result property="bCreateDate" column="B_CREATE_DATE"/>
+		<result property="bUpdateDate" column="B_UPDATE_DATE"/>
+		<result property="bStatus" column="B_STATUS"/>
+	</resultMap>
+	<!-- resultType: 1개 가져올때 , resultMap: 여러개 가져올때 -->
+	<select id="selectListCount" resultType="_int"> <!-- resultType="_int" 이작업이 rSet을 int에 담아주는 작업과 같다 -->
+		SELECT COUNT(*) FROM BOARD_TBL WHERE B_STATUS = 'Y'	<!-- B_STATUS = Y: 사용가능한 애들 -->
+	</select>
+	<select id="selectAllList" resultMap="boardResultMap"> <!-- 최신순정렬 -->	
+		SELECT * FROM BOARD_TBL WHERE B_STATUS = 'Y' ORDER BY BOARD_NO DESC
+	</select>
+	<select id="selectOneByNo" resultMap="boardResultMap">
+		SELECT * FROM BOARD_TBL WHERE BOARD_NO = #{boardNo }
+	</select>
+	
+	<!-- 게시판 등록 -->	
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO BOARD_TBL VALUES(SEQ_BOARD_NO.NEXTVAL, #{boardTitle}, #{boardContents}, #{boardWriter}, #{boardFilename }, #{boardFileRename }, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	
+	
+	
+	<update id="updateBoard" parameterType="Board">
+		
+	</update>
+	
+	<resultMap type="Reply" id="replyResultMap">
+		<id property="replyNo" column="REPLY_NO"/>
+		<result property="refBoardNo" column="REF_BOARD_NO"/>
+		<result property="replyContents" column="REPLY_CONTENTS"/>
+		<result property="replyWriter" column="REPLY_WRITER"/>
+		<result property="rCreateDate" column="R_CREATE_DATE"/>
+		<result property="rUpdateDate" column="R_UPDATE_DATE"/>
+		<result property="rStatus" column="R_STATUS"/>
+	</resultMap>
+	<select id="selectReplyList" resultMap="replyResultMap">
+		SELECT * FROM REPLY_TBL WHERE REF_BOARD_NO = #{boardNo } AND R_STATUS = 'Y' ORDER BY REPLY_NO DESC
+	</select>
+	<insert id="insertReply">
+		INSERT INTO REPLY_TBL VALUES(SEQ_REPLY_NO.NEXTVAL, #{refBoardNo }, #{replyContents }, #{replyWriter }, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	
+	<delete id="deleteReply">
+		DELETE FROM REPLY_TBL WHERE REPLY_NO = #{replyNo}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

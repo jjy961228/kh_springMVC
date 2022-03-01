@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- 1. setter 메서드 이용하는 방법(멤버변수가있는) -->
+<!-- 	<bean id="customer" class="org.kh.customer.domain.Customer">		 -->
+<!-- 		<property name="id" value="1"></property> 	Customer클래스의 public void setId() 의 Id를 name값으로 쓴다 -->
+<!-- 		<property name="name" value="이용자"></property>  -->
+<!-- 		<property name="address">  -->
+<!--  			<value>서울시 중구</value>  -->
+<!-- 		</property>  -->
+<!-- 		<property name="email">  -->
+<!--  			<value>user01@iei.co.kr</value>  -->
+<!-- 		</property>	  -->
+		
+		<!-- 2. 생성자를 이용하는 방법 멤버변수를 초기화하며 DI 의존성 주입을 하는 방법
+		 -->
+		<bean id="customer" class="org.kh.customer.domain.Customer">
+			<constructor-arg value="2"></constructor-arg>
+			<constructor-arg value="이용자"></constructor-arg>
+			<constructor-arg value="경기도"></constructor-arg>
+			<constructor-arg value="user02@iei.or.kr"></constructor-arg>
+		</bean>
+		
+		<!--  A 객체에 B객체를 주입 : ref를 이용한다 -->
+		
+		<!-- bean등록: CustomerStoreLogic -->
+		<bean id="CustomerStore" class="org.kh.customer.store.logic.CustomerStoreLogic"></bean>
+		
+		
+		
+		<!-- set메서드 이용한 bean등록: CustomerServiceImpl
+			 setStore를 이용해서 CustomerServiceImpl <- customerStore 에대한 의존성 주입(DI)   -->
+		<bean id="ustomerService" class="org.kh.customer.service.logic.CustomerServiceImpl"> <!-- bean등록 -->
+			<property name="store" ref="customerStore"></property> <!-- 의존성 주입 -->
+																<!--  CustomerServiceImpl의 name=store => setter메서드의 이름이다 -->
+		</bean>
+		
+		
+		
+		
+<!-- 		<!-- 생성자를 이용한 bean 등록 밑 의존성 주입 --> 
+<!-- 		<bean id="customerService" class="org.kh.customer.service.logic.CustomerServiceImpl"> --> <!-- bean등록 --> 
+<!-- 			<constroctor-arg ref="customerStore"></constroctor-arg> -->	<!-- 의존성 주입 -->
+<!-- 		</bean> -->
+		
+		
+		
+</beans>

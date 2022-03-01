@@ -1,0 +1,8 @@
+//게시판 조회
+(BoardController)
+boardListView(
+	//현재 페이지 번호
+	int currentPage
+
+rset -> board -> list에 저장 하는작업 필요가없어진다
+	
